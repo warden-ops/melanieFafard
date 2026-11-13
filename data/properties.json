@@ -1,7 +1,7 @@
 {
   "baseUrl": "https://melaniefafardimmo.com",
   "agentUrl": "https://propriodirect.com/melanie-fafard",
-  "generatedAt": "2026-11-12T19:26:13.532246+00:00",
+  "generatedAt": "2026-11-13T19:05:21.143075+00:00",
   "listings": [
     {
       "uls": "20197781",
@@ -58,19 +58,19 @@
         {
           "name": "Cuisine",
           "level": "1er niveau/RDC",
-          "dimensions": "13 X 12 ft / 3.96 X 3.66 m",
+          "dimensions": "13.8 X 11.10 ft / 4.17 X 3.61 m",
           "flooring": "Céramique"
         },
         {
           "name": "Salle de bains",
           "level": "1er niveau/RDC",
-          "dimensions": "5.6 X 8 ft / 1.68 X 2.44 m",
+          "dimensions": "5.9 X 7.11 ft / 1.75 X 2.41 m",
           "flooring": "Autre"
         },
         {
           "name": "Atelier",
           "level": "Sous-sol",
-          "dimensions": "20 X 18 ft irr / 6.10 X 5.49 m irr",
+          "dimensions": "11.10 X 35.1 ft irr / 3.61 X 10.69 m irr",
           "flooring": "Béton"
         }
       ],
