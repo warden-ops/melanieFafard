@@ -604,6 +604,21 @@ def generate_detail_page(listing: dict) -> None:
     print(f"wrote {dest_dir.relative_to(ROOT) / 'index.html'}")
 
 
+def is_listing_redirect_stub(index: Path) -> bool:
+    """True for a noindex meta-refresh left in place of an expired listing."""
+    try:
+        text = index.read_text(encoding="utf-8").lower()
+    except OSError:
+        return False
+    return (
+        'name="robots"' in text
+        and "noindex" in text
+        and 'http-equiv="refresh"' in text
+        and "proprietes.html" in text
+        and "<h1" not in text
+    )
+
+
 def prune_stale_detail_pages(registry: dict) -> None:
     active_paths = {
         (
@@ -625,6 +640,9 @@ def prune_stale_detail_pages(registry: dict) -> None:
             continue
         key = parts[:5]
         if key not in active_paths:
+            if is_listing_redirect_stub(index):
+                print(f"kept redirect {rel}")
+                continue
             index.unlink()
             # clean empty parents
             parent = index.parent
