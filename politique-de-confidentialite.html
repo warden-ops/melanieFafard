@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Politique de confidentialité | Mélanie Fafard, courtière immobilière</title>
-  <meta name="description" content="Politique de confidentialité de Mélanie Fafard Immobilier Inc. : collecte, utilisation, cookies, publicité Google, accès et rectification des renseignements personnels.">
+  <meta name="description" content="Politique de confidentialité de Mélanie Fafard Immobilier Inc. : collecte, utilisation, cookies, publicité Google et Microsoft, accès et rectification des renseignements personnels.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://melaniefafardimmo.com/politique-de-confidentialite.html" />
 
@@ -169,6 +169,18 @@
       }
     }
   </style>
+  <script>
+    window.uetq = window.uetq || [];
+    window.uetq.push('consent', 'default', {'ad_storage': 'denied'});
+    try {
+      var mfCookieConsent = localStorage.getItem('cookieConsent');
+      if (mfCookieConsent === 'accepted') {
+        window.uetq.push('consent', 'update', {'ad_storage': 'granted'});
+      } else if (mfCookieConsent === 'rejected') {
+        window.uetq.push('consent', 'update', {'ad_storage': 'denied'});
+      }
+    } catch (e) {}
+  </script>
   <script>(function(w, d, t, u, o) {w[u] = w[u] || [], o.ts = (new Date).getTime();var n = d.createElement(t);n.src = "https://bat.bing.net/bat.js?ti=" + o.ti + ("uetq" != u ? "&q=" + u : ""),n.async = 1, n.onload = n.onreadystatechange = function() {var s = this.readyState;s && "loaded" !== s && "complete" !== s ||(o.q = w[u], w[u] = new UET(o), w[u].push("pageLoad"),n.onload = n.onreadystatechange = null)};var i = d.getElementsByTagName(t)[0];i.parentNode.insertBefore(n, i);})(window, document, "script", "uetq", {ti: "97293963",enableAutoSpaTracking: true});</script>
 </head>
 
@@ -306,12 +318,14 @@
                 <p>
                   Le site peut utiliser des témoins (cookies) et technologies similaires pour assurer son bon fonctionnement,
                   mesurer la performance et, avec votre consentement, diffuser de la publicité pertinente via Google Ads
-                  (étiquette&nbsp;AW-17751777472). Ces outils peuvent recueillir des données comme le type de navigateur,
+                  (étiquette&nbsp;AW-17751777472) et Microsoft Advertising / Bing (balise UET, identifiant&nbsp;97293963).
+                  Ces outils peuvent recueillir des données comme le type de navigateur,
                   les pages consultées, l’adresse IP approximative ou un identifiant de cookie.
                 </p>
                 <p>
                   Un bandeau de consentement vous permet d’accepter ou de refuser les cookies non essentiels.
-                  En cas de refus, les balises publicitaires Google ne sont pas chargées. Vous pouvez aussi gérer les
+                  En cas de refus, les balises publicitaires Google ne sont pas chargées et Microsoft Advertising (UET)
+                  n’active pas le stockage publicitaire. Vous pouvez aussi gérer les
                   cookies dans les paramètres de votre navigateur et ajuster vos préférences publicitaires Google sur
                   <a href="https://adssettings.google.com/" target="_blank" rel="noopener">adssettings.google.com</a>.
                 </p>

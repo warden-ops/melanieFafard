@@ -49,6 +49,14 @@
     });
   });
 
+  function isUetEvaluationLead(thisForm) {
+    if (thisForm.getAttribute('data-uet-conversion') === 'evaluation_immobiliere') {
+      return true;
+    }
+    var action = thisForm.getAttribute('action') || '';
+    return /(?:^|\/)forms\/contact\.php(?:[?#]|$)/.test(action);
+  }
+
   function php_email_form_submit(thisForm, action, formData) {
     fetch(action, {
       method: 'POST',
@@ -65,6 +73,9 @@
     .then(data => {
       thisForm.querySelector('.loading').classList.remove('d-block');
       if (data.trim() == 'OK') {
+        if (isUetEvaluationLead(thisForm) && typeof uet_report_conversion === 'function') {
+          uet_report_conversion();
+        }
         thisForm.querySelector('.sent-message').classList.add('d-block');
         thisForm.reset(); 
       } else {

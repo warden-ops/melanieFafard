@@ -1,7 +1,17 @@
 /**
  * Cookie consent + gated Google Ads tag (AW-17751777472)
+ * and Microsoft Advertising UET consent (ti 97293963).
  * Values in localStorage key "cookieConsent": "accepted" | "rejected"
+ *
+ * Google Ads is not loaded until the visitor accepts — there is no Consent Mode
+ * default of "granted". UET mirrors that: ad_storage stays denied until accept.
+ * The default push is inline in each page <head>, before bat.js.
  */
+function uet_report_conversion() {
+  window.uetq = window.uetq || [];
+  window.uetq.push('event', 'submit_lead_form', {"event_label":"evaluation_immobiliere"});
+}
+
 (function () {
   var KEY = "cookieConsent";
   var ADS_ID = "AW-17751777472";
@@ -15,6 +25,11 @@
     }
     return "politique-de-confidentialite.html";
   })();
+
+  function uetConsentUpdate(state) {
+    window.uetq = window.uetq || [];
+    window.uetq.push("consent", "update", { ad_storage: state });
+  }
 
   function loadAnalytics() {
     if (window.__mfAdsLoaded) return;
@@ -45,8 +60,9 @@
     banner.innerHTML =
       '<div class="cc-inner">' +
       '<p class="cc-title">Respect de votre vie privée</p>' +
-      "<p class=\"cc-text\">Nous utilisons des cookies pour améliorer votre expérience et mesurer la performance du site " +
-      '(publicité Google). <a href="' +
+      "<p class=\"cc-text\">Nous utilisons des cookies pour améliorer votre expérience et mesurer la performance du site, " +
+      "notamment pour la publicité Google et Microsoft Advertising (Bing). " +
+      '<a href="' +
       PRIVACY_HREF +
       '#temoins">En savoir plus</a>.</p>' +
       '<div class="cc-actions">' +
@@ -74,19 +90,23 @@
     document.getElementById("cc-accept").addEventListener("click", function () {
       localStorage.setItem(KEY, "accepted");
       hideBanner(banner);
+      uetConsentUpdate("granted");
       loadAnalytics();
     });
 
     document.getElementById("cc-decline").addEventListener("click", function () {
       localStorage.setItem(KEY, "rejected");
       hideBanner(banner);
+      uetConsentUpdate("denied");
     });
 
     if (consent === "accepted") {
+      uetConsentUpdate("granted");
       loadAnalytics();
       return;
     }
     if (consent === "rejected") {
+      uetConsentUpdate("denied");
       return;
     }
     showBanner(banner);

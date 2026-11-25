@@ -140,6 +140,18 @@
       transform: translateY(-2px);
     }
   </style>
+  <script>
+    window.uetq = window.uetq || [];
+    window.uetq.push('consent', 'default', {'ad_storage': 'denied'});
+    try {
+      var mfCookieConsent = localStorage.getItem('cookieConsent');
+      if (mfCookieConsent === 'accepted') {
+        window.uetq.push('consent', 'update', {'ad_storage': 'granted'});
+      } else if (mfCookieConsent === 'rejected') {
+        window.uetq.push('consent', 'update', {'ad_storage': 'denied'});
+      }
+    } catch (e) {}
+  </script>
   <script>(function(w, d, t, u, o) {w[u] = w[u] || [], o.ts = (new Date).getTime();var n = d.createElement(t);n.src = "https://bat.bing.net/bat.js?ti=" + o.ti + ("uetq" != u ? "&q=" + u : ""),n.async = 1, n.onload = n.onreadystatechange = function() {var s = this.readyState;s && "loaded" !== s && "complete" !== s ||(o.q = w[u], w[u] = new UET(o), w[u].push("pageLoad"),n.onload = n.onreadystatechange = null)};var i = d.getElementsByTagName(t)[0];i.parentNode.insertBefore(n, i);})(window, document, "script", "uetq", {ti: "97293963",enableAutoSpaTracking: true});</script>
 </head>
 
@@ -414,7 +426,7 @@
           </div>
 
           <!-- FORM WITH FORMSPREE -->
-          <form action="https://formspree.io/f/meeqblzv" method="POST" id="contact-form" class="modern-form">
+          <form action="https://formspree.io/f/meeqblzv" method="POST" id="contact-form" class="modern-form" data-uet-conversion="evaluation_immobiliere">
 
             <input type="hidden" name="source" value="Site Mélanie Fafard">
 
@@ -570,6 +582,15 @@
 <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/cookie-consent.js"></script>
+<script>
+  // Same Formspree lead form as the homepage, without a fetch success handler:
+  // the browser posts natively after HTML5 validation. Queue the conversion then.
+  document.getElementById("contact-form").addEventListener("submit", function () {
+    if (typeof uet_report_conversion === "function") {
+      uet_report_conversion();
+    }
+  });
+</script>
 
 </body>
 </html>
