@@ -11,6 +11,23 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 BASE_URL = "https://melaniefafardimmo.com"
 
+# Google Ads stays unloaded until accept (no Consent Mode "granted" default).
+# UET mirrors that with ad_storage denied. This block must stay before any bat.js tag.
+# A stored choice is reapplied here and again in assets/js/cookie-consent.js.
+UET_CONSENT_DEFAULT = """  <script>
+    window.uetq = window.uetq || [];
+    window.uetq.push('consent', 'default', {'ad_storage': 'denied'});
+    try {
+      var mfCookieConsent = localStorage.getItem('cookieConsent');
+      if (mfCookieConsent === 'accepted') {
+        window.uetq.push('consent', 'update', {'ad_storage': 'granted'});
+      } else if (mfCookieConsent === 'rejected') {
+        window.uetq.push('consent', 'update', {'ad_storage': 'denied'});
+      }
+    } catch (e) {}
+  </script>
+"""
+
 
 def load_registry() -> dict:
     return json.loads((ROOT / "data" / "properties.json").read_text(encoding="utf-8"))
@@ -92,6 +109,7 @@ def site_chrome(active: str, depth: int = 0) -> tuple[str, str]:
   </div>
 </header>"""
 
+    # Banner copy and UET accept/refuse updates live in cookie-consent.js, not in this HTML.
     footer = f"""<footer id="footer" class="footer dark-background">
   <div class="container footer-top">
     <div class="row gy-4">
@@ -199,7 +217,7 @@ def head_block(
   <meta name="twitter:image" content="{escape(og_image)}">
   <meta name="twitter:image:alt" content="{escape(title)}">
 {extra}
-</head>"""
+{UET_CONSENT_DEFAULT}</head>"""
 
 
 def listing_card_html(listing: dict, depth: int = 0) -> str:
